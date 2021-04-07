@@ -1,6 +1,5 @@
 import React from 'react';
 import style from './FormControls.module.css';
-import imgIcon from '../../../assets/images/imgIcon.svg';
 
 const FormControl = ({input, meta: {touched, error}, ...props}) => {
   const hasError = touched && error;
@@ -19,67 +18,4 @@ export const Textarea = (props) => {
          </FormControl>
 };
 
-export const Input = (props) => {
-  const {input, meta, defaultValue, ...restProps} = props;
-  return <FormControl {...props}>
-           <input {...input} {...restProps}/>
-           <label htmlFor={props.id}>{props.id}:</label>
-         </FormControl>
-};
-
-export const Hidden = (props) => {
-  const {input, meta, ...restProps} = props;
-  return <FormControl {...props}>
-           <input {...input} {...restProps} />
-         </FormControl>
-};
-
-export class FieldFileInput extends React.Component{
-  constructor(props) {
-    super(props)
-    this.onChange = this.onChange.bind(this)
-  }
-
-  onChange(e) {
-    const { input: { onChange } } = this.props
-    onChange(e.target.files[0])
-  }
-
-  render(){
-    const { input: { value } } = this.props;
-    const {input, meta, ...restProps } = this.props;
-    return (
-      <FormControl {...this.props}>
-        <div className={style.block}>
-          <label className={style.btnTertiary}>
-          <input {...restProps} name={`${input.name}`} onChange={this.onChange} className={style.inputFile} accept={restProps.accept} />
-            <span className={style.icon}><img src={imgIcon} alt="photo"/></span>
-          </label>
-        </div>
-      </FormControl>
-    )
-  }
-}
-
-export class FieldFileInputButton extends React.Component{
-  constructor(props) {
-    super(props)
-    this.onChange = this.onChange.bind(this)
-  }
-
-  onChange(e) {
-    const { input: { onChange } } = this.props
-    onChange(e.target.files[0])
-  }
-
-  render(){
-    const { input: { value } } = this.props;
-    const {input, meta, ...restProps } = this.props;
-    return (
-      <FormControl {...this.props}>
-        <input className={style.imageFile} {...restProps} name={`${input.name}`} onChange={this.onChange} accept={restProps.accept} />
-      </FormControl>
-    )
-  }
-}
 

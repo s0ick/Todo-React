@@ -1,9 +1,27 @@
 import React from 'react';
-import style from './CompleteList.module.css';
+import style from '../ActiveList/ActiveList.module.css';
+import Task from '../ActiveList/Task/Task';
 
-const CompleteList = React.memo(({props}) => {
+const CompleteList = React.memo((props) => {
   return (
-    <h1>Complete LIST</h1>
+    <div className={style.container}>
+      <div className={style.list}>
+        {
+          props.tasks && 
+            props.tasks.map(t => {
+              if(t.completed) {
+                return <Task 
+                  key={`task_id_${t.id}`} 
+                  message={t.message} 
+                  id={t.id}
+                  deleteTask={props.deleteTask}
+                  updateCompleted={props.updateCompleted} 
+                />
+              }
+            })
+        }
+      </div>
+    </div>
   )
 });
 
