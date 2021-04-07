@@ -1,0 +1,25 @@
+.container {
+  padding: 10px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #565c68;
+  padding-right: 8px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  padding-left: 8px;
+}

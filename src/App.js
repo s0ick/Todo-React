@@ -1,25 +1,57 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+
+import store from './Redux/store';
+import { setInitializedSuccess } from './Redux/Reducers/appReducer';
+
+import Preloader from './Components/common/Preloader/Preloader';
+import Routes from './Routes/Routes';
+import Header from './Components/Header/Header'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  componentDidMount() {
+    this.props.setInitializedSuccess();
+  }
+  render () {
+    if(this.props.initialized) {
+      return (
+        <div className="app-wrapper">
+          <Header />
+          <div className="app-wrapper-hero">
+            <Routes />
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="app-wrapper">
+          <Preloader />
+        </div>
+      )
+    }
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    initialized: state.app.initialized
+  }
+}
+
+let AppContainer = compose(
+  connect(mapStateToProps, { setInitializedSuccess }),
+)(App);
+
+export const TodoListApp = () => {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    </BrowserRouter>
+  )
+}
