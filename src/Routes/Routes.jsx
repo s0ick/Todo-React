@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import Preloader from '../Components/common/Preloader/Preloader';
 
 const ActiveListContainer = React.lazy(() => import('../Components/ActiveList/ActiveListContainer'));
@@ -12,6 +12,7 @@ const Routes = (props) => {
         <Route path='/tasks' render={() => <ActiveListContainer />} />
         <Route path='/completed' render={() => <CompleteListContainer />} />
       </Suspense>
+      <Redirect to='/tasks' />
     </div>
   )
 };

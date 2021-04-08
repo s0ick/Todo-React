@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { reset } from "redux-form";
 import style from './ActiveList.module.css';
 import Task from './Task/Task';
@@ -10,6 +10,11 @@ const ActiveList = React.memo((props) => {
     props.setTask(message);
     dispatch(reset('addTask'));
   };
+
+  useEffect(() => {
+    localStorage.removeItem('tasks');
+    localStorage.setItem('tasks', JSON.stringify(props.tasks));
+  }, [props.tasks]);
 
   return (
     <div className={style.container}>

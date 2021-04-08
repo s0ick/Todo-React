@@ -1,5 +1,5 @@
 import React from 'react';
-import style from '../ActiveList.module.css';
+import style from './Task.module.css';
 import done from '../../../assets/done.svg';
 import remove from '../../../assets/delete.svg';
 

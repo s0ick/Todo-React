@@ -1,4 +1,5 @@
-const TASKS = 'Task/TASKS',
+const TASK = 'Task/TASK',
+      PUSH_TASKS = 'Task/PUSH_TASKS',
       DELETE_TASK = 'Task/DELETE_TASK',
       UPDATE_COMPLETED = 'Task/UPDATE_COMPLETED';
 
@@ -8,14 +9,20 @@ let initial = {
 
 const taskReducer = (state = initial, action) => {
   switch(action.type) {
-    case TASKS:
+    case TASK:
       return { ...state,
         tasks: [...state.tasks, {
           id: state.tasks.length ? state.tasks[state.tasks.length - 1].id + 1 : 0,
           message: action.task,
-          completed: false
+          completed: false,
+          dateCompleted: null
         }]
       };
+
+    case PUSH_TASKS:
+      return {...state,
+        tasks: action.array
+      };  
 
     case DELETE_TASK:
       return {...state,
@@ -25,7 +32,7 @@ const taskReducer = (state = initial, action) => {
     case UPDATE_COMPLETED:
       return {...state,
         tasks: state.tasks.map(t => {
-          if(t.id === action.id) return {...t, completed: !t.completed};
+          if(t.id === action.id) return {...t, completed: !t.completed, dateCompleted: new Date()};
           return t;
         })
       };  
@@ -35,7 +42,8 @@ const taskReducer = (state = initial, action) => {
 }
 
 // ACTION CREATORS
-export const setTask = (task) => ({type: TASKS, task});
+export const setTask = (task) => ({type: TASK, task});
+export const pushTasks = (array) => ({type: PUSH_TASKS, array});
 export const deleteTask = (id) => ({type: DELETE_TASK, id});
 export const updateCompleted = (id) => ({type: UPDATE_COMPLETED, id});
 
