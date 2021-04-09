@@ -2,8 +2,8 @@ import React, { Suspense } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Preloader from '../Components/common/Preloader/Preloader';
 
-const ActiveList = React.lazy(() => import('../Components/ActiveList/ActiveList'));
-const CompleteList = React.lazy(() => import('../Components/ActiveList/CompleteList'));
+const ActiveList = React.lazy(() => import('../Components/Lists/ActiveList'));
+const CompleteList = React.lazy(() => import('../Components/Lists/CompleteList'));
 
 const Routes = (props) => {
   return (
