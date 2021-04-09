@@ -6,17 +6,16 @@ import { connect } from 'react-redux';
 
 import store from './Redux/store';
 import { setInitializedSuccess } from './Redux/Reducers/appReducer';
-import { pushTasks } from './Redux/Reducers/taskReducer';
+import { getTasks } from './Redux/Reducers/taskReducer';
 
 import Preloader from './Components/common/Preloader/Preloader';
 import Routes from './Routes/Routes';
 import Header from './Components/Header/Header';
 import './App.css';
 
-class App extends React.Component {
+const App = () => {
   componentWillMount() {
-    let tasks = JSON.parse(localStorage.getItem('tasks'));
-    this.props.pushTasks(tasks);
+    this.props.getTasks();
   }
   componentDidMount() {
     this.props.setInitializedSuccess();
@@ -49,7 +48,7 @@ const mapStateToProps = (state) => {
 }
 
 let AppContainer = compose(
-  connect(mapStateToProps, { setInitializedSuccess, pushTasks }),
+  connect(mapStateToProps, { setInitializedSuccess, getTasks }),
 )(App);
 
 export const TodoListApp = () => {

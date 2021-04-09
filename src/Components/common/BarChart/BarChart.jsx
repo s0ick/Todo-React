@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import { BarChart, Bar, XAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-const days = ['Sun','Mon','Tues','Wed','Thurs','Frid','Sat'];
-
 Date.prototype.getWeek = function() {
   let onejan = new Date(this.getFullYear(),0,1);
   return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7) - 1;

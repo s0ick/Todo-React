@@ -1,7 +1,7 @@
 import CompleteList from './CompleteList';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { deleteTask, updateCompleted } from '../../Redux/Reducers/taskReducer';
+import { deleteTask, updateTask } from '../../Redux/Reducers/taskReducer';
 
 let mapStateToProps = (state) => {
   return {
@@ -10,5 +10,5 @@ let mapStateToProps = (state) => {
 };
 
 export default compose(
-  connect(mapStateToProps, { deleteTask, updateCompleted })
+  connect(mapStateToProps, { deleteTask, updateTask })
 )(CompleteList);
