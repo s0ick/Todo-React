@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
-const COLORS = ['#ff5252', '#40c4ff '];
+const COLORS = ['#ff5252', '#40c4ff'];
 
 const RADIAN = Math.PI / 180;
 
@@ -17,51 +17,47 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   );
 };
 
-export default class PieChartClass extends PureComponent {
-  state = {
-    active: 0,
-    completed: 0
-  }
+const PieChartComponent = (props) => {
+  const [data, setData] = useState([]);
 
-  setData() {
+  useEffect(() => {
+
     let active = 0, completed = 0;
-
-    this.props.data.forEach(elem => {
+    props.data.forEach(elem => {
       if(elem.completed) completed++;
       else active++;
     });
 
-    this.setState({active, completed});
-  }
+    setData([active, completed]);
+  }, [props.data]);
 
-  render() {
-    this.setData();
-    let array = [];
-    for(let key in this.state) array.push(this.state[key]);
-    return (
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={400} height={400}>
-          <Pie
-            data={[
-              { name: 'Active Tasks', value: this.state.active },
-              { name: 'Completed Tasks', value: this.state.completed },
-            ]}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            label={renderCustomizedLabel}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-            stroke="#263238"
-          >
-            {array.map((entry, index) => (
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart width={400} height={400}>
+        <Pie
+          data={[
+            { name: 'Active Tasks', value: data[0] },
+            { name: 'Completed Tasks', value: data[1] },
+          ]}
+          cx="50%"
+          cy="50%"
+          labelLine={false}
+          label={renderCustomizedLabel}
+          outerRadius={80}
+          fill="#8884d8"
+          dataKey="value"
+          stroke="#263238"
+        >
+          {
+            data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
-    );
-  }
-}
+            ))
+          }
+        </Pie>
+        <Tooltip />
+      </PieChart>
+    </ResponsiveContainer>
+  );
+};
+
+export default PieChartComponent;

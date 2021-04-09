@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { reset } from "redux-form";
-import style from './ActiveList.module.css';
+import style from './Styles.module.css';
 import Task from './Task/Task';
 import AddForm from './Form/AddForm';
 
 const ActiveList = React.memo((props) => {
-  const [tasks, setS]
 
   const onSubmit = (formData, dispatch) => {
     const { message } = formData;

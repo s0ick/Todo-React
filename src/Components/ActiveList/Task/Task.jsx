@@ -11,10 +11,10 @@ const Task = (props) => {
         {props.message}
       </p>
       <div className={style.panel}>
-        <button onClick={() => props.updateTask(props.id, {id, message, completed: !completed, dateCompleted: new Date })} className={style.complete}>
+        <button onClick={() => props.updateTask(id, {id, message, completed: !completed, dateCompleted: new Date() })} className={style.complete}>
           <img className={style.icon} src={done} alt="delete"/>
         </button>
-        <button onClick={() => props.deleteTask(props.id)} className={style.remove}>
+        <button onClick={() => props.deleteTask(id) } className={style.remove}>
           <img className={style.icon} src={remove} alt="done"/>
         </button>
       </div>
